@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VentZone</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #b1b586;
+            padding: 10px 20px;
+            height: 80px;
+            color: #fcfff1;
+        }
+
+        .navbar-left {
+            font-size: 24px;
+            font-weight: 900;
+        }
+
+        .navbar-left a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .navbar-right .aboutus {
+            color: rgb(211, 36, 36);
+        }
+
+        .navbar-right a {
+            color: #ffffff;
+            text-decoration: dashed;
+            font-size: 18px;
+            margin: 10px;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 1rem;
+        }
+
+        .event-card {
+            background-color: white;
+            padding: 2rem;
+            display: flex;
+            align-items: flex-start;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .poster {
+            width: 300px;
+            height: 300px;
+            color: white;
+            display: flex;
+            justify-content: center;
+            object-fit: cover;
+            align-items: center;
+            margin-right: 2rem;
+            font-size: 1.5rem;
+        }
+
+        .poster img {
+            max-width: 100%;
+            height: 100%;
+        }
+
+        .event-info {
+            flex: 1;
+        }
+
+        .event-info p {
+            text-align: justify;
+        }
+
+        .event-info h1 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .event-info .details {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .details {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: center;
+        }
+
+        .detail-item img {
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
+        }
+
+        .event-info .buy-btn {
+            background-color: #c8c99e;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        .event-info .buy-btn:hover {
+            background-color: #b1b586;
+        }
+
+        .event-info p {
+            margin-top: 1rem;
+            color: #666;
+        }
+
+        /* Kiri: Info Tiket */
+        .ticket-info {
+            background-color: #ffe9e9;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .ticket-info h2 {
+            margin-bottom: 10px;
+            color: #d9534f;
+        }
+
+        .ticket-info h3 {
+            margin-top: 20px;
+        }
+
+        .ticket-info p {
+            margin-bottom: 10px;
+            color: #888;
+        }
+
+        .price {
+            font-size: 24px;
+            color: #d9534f;
+            margin-bottom: 10px;
+        }
+
+        /* Jumlah Tiket */
+        .ticket-quantity {
+            display: none; /* Tersembunyi secara default */
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            border: 1px solid #d9534f;
+            border-radius: 5px;
+            padding: 5px;
+        }
+
+        .quantity-control button {
+            background-color: transparent;
+            border: none;
+            font-size: 24px;
+            color: #d9534f;
+            cursor: pointer;
+        }
+
+        .quantity-control input {
+            text-align: center;
+            width: 40px;
+            border: none;
+            font-size: 18px;
+        }
+
+        /* Kanan: Detail Pesanan */
+        .order-summary {
+            flex: 1;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: none; /* Tersembunyi secara default */
+        }
+
+        .order-summary h3 {
+            margin-bottom: 10px;
+            font-size: 20px;
+            color: #333;
+        }
+
+        .order-summary ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .order-summary ul li {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 16px;
+            color: #555;
+        }
+
+        .order-summary .total {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .order-summary .btn-continue {
+            display: block;
+            background-color: #d9534f;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            border-radius: 5px;
+            margin-top: 20px;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .order-summary .btn-continue:hover {
+            background-color: #c9302c;
+        }
+
+        /* Tombol Buy Now */
+        .btn-buy {
+            display: inline-block;
+            background-color: #d9534f;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .btn-buy:hover {
+            background-color: #c9302c;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="navbar">
+        <div class="navbar-left">
+            <a href="homepage.html">VentZone</a>
+        </div>
+        <div class="navbar-right">
+            <a href="about us">About Us</a>
+            <a href="akun.html">Ticket</a>
+            <a href="about us" class="aboutus">Logout</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="event-card">
+            <div class="poster">
+                <img src="Dualipa.jpeg" alt="Dua Lipa">
+            </div>
+            <div class="event-info">
+                <h1>Dua Lipa Radical Optimism Tour</h1>
+                <div class="details">
+                    <div class="detail-item">
+                        <img src="location.png" alt="Location">
+                        <span><b>Jakarta</b></span>
+                    </div>
+                    <div class="detail-item">
+                        <img src="buildings.png" alt="Venue">
+                        <span><b>ICE BSD Hall 9-10</b></span>
+                    </div>
+                    <div class="detail-item">
+                        <img src="date.png" alt="Date">
+                        <span><b>09-11-2024</b></span>
+                    </div>
+                    <div class="detail-item">
+                        <img src="clock.png" alt="Time">
+                        <span><b>19.00-22.00</b></span>
+                    </div>
+                </div>
+                <button class="buy-btn" onclick="showTicketInfo()">BUY NOW</button>
+                <p>Live Nation, TEM Presents, dan PK Entertainment dengan bangga mengumumkan konser solo pertama bintang pop global pemenang 3x GRAMMY dan 7x BRIT Award, Dua Lipa, bertajuk "Radical Optimism Tour" di Jakarta, Indonesia pada 9 November 2024. </p>
+            </div>
+        </div>
+
+        <!-- Informasi Tiket -->
+        <div class="ticket-info" id="ticket-info" style="display: none;">
+            <h2>Pilih Kategori Tiket</h2>
+            
+            <!-- Kategori Tiket CAT 1 -->
+            <div>
+                <h3 id="ticket-category-1">CAT 1</h3>
+                <p>Harga: Rp3.000.000</p>
+                <div class="price">Rp3.000.000</div>
+                <div class="coin-price">atau 30.000 koin</div>
+                <button class="btn-buy" onclick="showQuantityInput(1, this)">Buy Now</button>
+                <div class="ticket-quantity" id="quantity-1">
+                    <div class="quantity-control">
+                        <button onclick="decreaseQuantity(1)">&#8722;</button>
+                        <input type="number" id="ticket-amount-1" value="0" min="0" max="5" placeholder="Jumlah Tiket" oninput="updateOrderDetails()">
+                        <button onclick="increaseQuantity(1)">&#43;</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kategori Tiket CAT 2B -->
+            <div>
+                <h3 id="ticket-category-2B">CAT 2B</h3>
+                <p>Harga: Rp2.015.555</p>
+                <div class="price">Rp2.015.555</div>
+                <div class="coin-price">atau 20.156 koin</div>
+                <button class="btn-buy" onclick="showQuantityInput(2, this)">Buy Now</button>
+                <div class="ticket-quantity" id="quantity-2">
+                    <div class="quantity-control">
+                        <button onclick="decreaseQuantity(2)">&#8722;</button>
+                        <input type="number" id="ticket-amount-2" value="0" min="0" max="5" placeholder="Jumlah Tiket" oninput="updateOrderDetails()">
+                        <button onclick="increaseQuantity(2)">&#43;</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kategori Tiket CAT 3 -->
+            <div>
+                <h3 id="ticket-category-3">CAT 3</h3>
+                <p>Harga: Rp1.500.000</p>
+                <div class="price">Rp1.500.000</div>
+                <div class="coin-price">atau 15.000 koin</div>
+                <button class="btn-buy" onclick="showQuantityInput(3, this)">Buy Now</button>
+                <div class="ticket-quantity" id="quantity-3">
+                    <div class="quantity-control">
+                        <button onclick="decreaseQuantity(3)">&#8722;</button>
+                        <input type="number" id="ticket-amount-3" value="0" min="0" max="5" placeholder="Jumlah Tiket" oninput="updateOrderDetails()">
+                        <button onclick="increaseQuantity(3)">&#43;</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detail Pesanan -->
+        <div class="order-summary" id="order-summary" style="display: none;">
+            <h3>Detail Pemesanan</h3>
+            <ul id="order-details"></ul>
+            <div class="total" id="total-price">Total: Rp0</div>
+            <a href="#" class="btn-continue">Lanjutkan</a>
+        </div>
+    </div>
+    </div>
+
+    <script>
+          // Harga per tiket
+        const ticketPrices = {
+            1: 3000000,
+            2: 2015555,
+            3: 1500000
+        };
+
+        // Menampilkan kontrol jumlah tiket dan menghilangkan tombol Buy Now
+
+        function showTicketInfo() {
+            document.getElementById('ticket-info').style.display = 'block';
+            document.getElementById('order-summary').style.display = 'block'; // Menampilkan detail transaksi
+        } 
+
+        function showQuantityInput(category, button) {
+            document.getElementById(`quantity-${category}`).style.display = 'flex';
+            button.style.display = 'none'; // Menghilangkan tombol Buy Now
+            updateOrderDetails(); // Update detail pemesanan saat membuka
+        }
+
+        // Fungsi untuk menambah jumlah tiket
+        function increaseQuantity(category) {
+            const ticketAmount = document.getElementById(`ticket-amount-${category}`);
+            if (ticketAmount.value < 5) {
+                ticketAmount.value = parseInt(ticketAmount.value) + 1;
+                updateOrderDetails();
+            }
+        }
+
+        // Fungsi untuk mengurangi jumlah tiket
+        function decreaseQuantity(category) {
+            const ticketAmount = document.getElementById(`ticket-amount-${category}`);
+            if (ticketAmount.value > 0) {
+                ticketAmount.value = parseInt(ticketAmount.value) - 1;
+                updateOrderDetails();
+            }
+        }
+
+        // Fungsi untuk mengupdate detail pemesanan
+        function updateOrderDetails() {
+            const orderDetails = document.getElementById('order-details');
+            orderDetails.innerHTML = ''; // Kosongkan detail pesanan
+
+            let total = 0; // Inisialisasi total
+
+            for (let i = 1; i <= 3; i++) {
+                const ticketAmount = document.getElementById(`ticket-amount-${i}`).value;
+                if (ticketAmount > 0) {
+                    const subtotal = ticketAmount * ticketPrices[i];
+                    total += subtotal;
+                    const listItem = document.createElement('li');
+                    listItem.textContent = `Kategori ${i}: ${ticketAmount} Tiket - Rp${subtotal.toLocaleString()}`;
+                    orderDetails.appendChild(listItem);
+                }
+            }
+
+            document.getElementById('total-price').innerText = `Total: Rp${total.toLocaleString()}`;
+        }
+    </script>
+
+</body>
+</html>

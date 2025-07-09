@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: var(--container-color);
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            /* Lebar penuh untuk container */
+            height: 100%;
+            /* Tinggi penuh untuk container */
+            padding: 20px;
+        }
+
+
+        ::selection {
+            background: var(--container-color);
+        }
+
+        .container {
+            width: 360px;
+            padding: 20px;
+        }
+
+        .wrapper {
+            width: 420px;
+            background: rgb(58, 58, 58);
+            color: #fff;
+            border-radius: 10px;
+            padding: 30px 40px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+            z-index: 1;
+            opacity: 90%;
+
+        }
+
+
+
+        .wrapper .title span {
+            position: relative;
+            /* Menambah properti posisi */
+            z-index: 1;
+            /* Menentukan z-index agar teks berada di atas background */
+        }
+
+
+        .wrapper form {
+            padding: 20px 15px 15px 15px;
+        }
+
+
+        .wrapper form .row {
+            height: 35px;
+            margin-bottom: 10px;
+            position: relative;
+        }
+
+        .wrapper form .row input {
+            height: 100%;
+            width: 100%;
+            outline: none;
+            padding-left: 50px;
+            border-radius: 5px;
+            border: 1px solid rgb(87, 84, 84);
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        form .row input:focus {
+            border-color: gray;
+            box-shadow: inset 0px 0px 2px 2px grey;
+        }
+
+        form .row input::placeholder {
+            color: #999;
+        }
+
+        .wrapper form .row i {
+            position: absolute;
+            width: 40px;
+            height: 100%;
+            color: #fff;
+            font-size: 16px;
+            background: rgb(174, 174, 172);
+            border: 1px solid grey;
+            border-radius: 5px 0 0 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .wrapper form .pass {
+            margin: -8px 0 20px 0;
+        }
+
+        .wrapper form .pass a {
+            color: var(--body-color);
+            font-size: 14px;
+            text-decoration: none;
+        }
+
+        .wrapper form .pass a:hover {
+            text-decoration: underline;
+        }
+
+        .wrapper form .button input {
+            width: 100%;
+            height: 45px;
+            background: #fff;
+            border: none;
+            outline: none;
+            border-radius: 40px;
+            box-shadow: 0 0 10px rgb(0, 0, 0, .1);
+            cursor: pointer;
+            font-size: 16px;
+            color: #333;
+            font-weight: 600;
+            text-align: center;
+            padding-left: 0;
+            margin-top : 10px;
+        }
+
+        form .button input:hover {
+            background: grey
+        }
+
+        .wrapper form .signup-link {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .wrapper form .signup-link a {
+            color: var(--body-color);
+            text-decoration: none;
+        }
+
+        form .signup-link a:hover {
+            text-decoration: underline;
+        }
+        
+        .dom {
+            height: 35px;
+            margin-bottom: 10px;
+            color: gray;
+        }
+
+        .alamat {
+            width: 24px;
+            height: 24px;
+        }
+
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('Image/ruangan.jpeg') no-repeat center center/cover;
+            z-index: -1;
+        }
+        .registration {
+            font-size: 36px;
+            text-align: center;
+            padding-left: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="background"></div>
+    <div class="container">
+        <div class="wrapper">
+            <span class="registration"><b>REGISTRATION</b></span>
+            <form action="" method="post">
+                <div class="row">
+                    <i class='bx bxs-user'></i>
+                    <input type="text" placeholder="Patient Id" name="Patient_Id" required>
+                </div>
+                <div class="row">
+                    <i class='bx bx-envelope'></i>
+                    <input type="text" placeholder="Name" name="Name" required>
+                </div>
+                <div class="row">
+                    <i class='bx bx-home'></i>
+                    <input type="text" placeholder="Address" name="street" required class="alamat">
+                </div>
+                <div class="row">
+                    <div class="dom">
+                        <i class='bx bxs-user-rectangle'></i>
+                        <input type="date" placeholder="TTL" name="Birthdate" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <i class='bx bx-home'></i>
+                    <input type="text" placeholder="Age" name="Age" required class="umur">
+                </div>
+                <div class="row">
+                    <div class="dom">
+                        <i class='bx bxs-user-rectangle'></i>
+                        <input type="date" placeholder="registrationDate" name="Registration_date" required>
+                    </div>
+                </div>
+                <div class="row button">
+                    <input type="submit" value="Register">
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
